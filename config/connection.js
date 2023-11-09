@@ -1,5 +1,10 @@
+require('dotenv').config();
 const { connect, connection } = require('mongoose');
 
-connect('mongodb://127.0.0.1:27017/socialMediaApi')
+connect(process.env.MONGODB_URL);
+
+connection.once('open', () => {
+  console.log('MongoDB database connection established successfully');
+});
 
 module.exports = connection;

@@ -11,6 +11,10 @@ const reactionSchema = new Schema(
             required: true,
             maxlength: 280,
         },
+        postId: {
+            type: Schema.Types.ObjectId,
+            ref: "Thought",
+        },
         username: {
             type: String,
             required: true,

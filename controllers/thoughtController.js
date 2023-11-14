@@ -40,7 +40,6 @@ module.exports = {
         req.params.id,
         { 
           thoughtText: req.body.text,
-          username: req.body.username
         },
         { new: true }
       );
@@ -97,9 +96,9 @@ module.exports = {
   },
   async deleteReaction(req, res) {
     try {
-      const { thoughtId, reactionId } = req.body;
+      const { reactionId } = req.body;
 
-      const thought = await Thought.findById(thoughtId);
+      const thought = await Thought.findById(req.params.id);
 
       if (!thought) {
         res.status(404).json({ message: 'No thought with that id' });

@@ -4,9 +4,9 @@ module.exports = {
   async getThoughts(req, res) {
     try {
       const thoughts = await Thought.find();
-      res.status(200).json(thoughts);
+      return res.status(200).json(thoughts);
     } catch (err) {
-      res.status(500).json(err);
+      return res.status(500).json(err);
     }
   },
   async getOneThought(req, res) {
@@ -14,12 +14,12 @@ module.exports = {
       const thought = await Thought.findById({ _id: req.params.id });
 
       if (!thought) {
-        res.status(404).json({ message: 'No thought with that ID' });
+        return res.status(404).json({ message: 'No thought with that ID' });
       }
 
-      res.status(200).json(thought);
+      return res.status(200).json(thought);
     } catch (err) {
-      res.status(500).json(err);
+      return res.status(500).json(err);
     }
   },
   async createThought(req, res) {
@@ -29,9 +29,9 @@ module.exports = {
 
       thoughtUser.friends.push(newThought._id);
 
-      res.status(200).json(newThought);
+      return res.status(200).json(newThought);
     } catch (err) {
-      res.status(500).json(err);
+      return res.status(500).json(err);
     }
   },
   async updateThought(req, res) {
@@ -45,12 +45,12 @@ module.exports = {
       );
 
       if(!updatedThought) {
-        res.status(404).json({ message: 'No thought with that id' });
+        return res.status(404).json({ message: 'No thought with that id' });
       };
 
-      res.status(200).json(updatedThought);
+      return res.status(200).json(updatedThought);
     } catch (err) {
-      res.status(500).json(err);
+      return res.status(500).json(err);
     }
   },
   async deleteThought(req, res) {
@@ -62,12 +62,12 @@ module.exports = {
       await thoughtUser.save();
 
       if (!thoughtToDelete) {
-        res.status(404).json({ message: 'No thought with that id' });
+        return res.status(404).json({ message: 'No thought with that id' });
       };
 
-      res.status(200).json({ message: 'Thought deleted' });
+      return res.status(200).json({ message: 'Thought deleted' });
     } catch (err) {
-      res.status(500).json(err);
+      return res.status(500).json(err);
     }
   },
   async createReaction(req, res) {
@@ -89,9 +89,9 @@ module.exports = {
 
       await thought.save();
 
-      res.status(200).json(thought);
+      return res.status(200).json(thought);
     } catch (err) {
-      res.status(500).json(err);
+      return res.status(500).json(err);
     }
   },
   async deleteReaction(req, res) {
@@ -101,16 +101,16 @@ module.exports = {
       const thought = await Thought.findById(req.params.id);
 
       if (!thought) {
-        res.status(404).json({ message: 'No thought with that id' });
+        return res.status(404).json({ message: 'No thought with that id' });
       }
 
-      thought.reactions = thought.reactions.filter(reaction => reaction._id != reactionId);
+      thought.reactions = thought.reactions.filter(reaction => reaction.reactionId !== reactionId);
 
       await thought.save();
 
       return res.status(200).json(thought);
     } catch (err) {
-      res.status(500).json(err);
+      return res.status(500).json(err);
     }
   }
 };

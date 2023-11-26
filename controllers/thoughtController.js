@@ -36,7 +36,7 @@ module.exports = {
       const updatedThought = await Thought.findByIdAndUpdate(
         req.params.id,
         { 
-          thoughtText: req.body.text,
+          thoughtText: req.body.thoughtText,
         },
         { new: true }
       );

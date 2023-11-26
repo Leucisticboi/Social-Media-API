@@ -89,9 +89,9 @@ module.exports = {
 
       await thought.save();
 
-      return res.status(200).json(thought);
+      res.status(200).json(thought);
     } catch (err) {
-      return res.status(500).json(err);
+      res.status(500).json(err);
     }
   },
   async deleteReaction(req, res) {
@@ -108,7 +108,7 @@ module.exports = {
 
       await thought.save();
 
-      return res.status(200).json(thought);
+      return res.status(200).json({ message: 'Reaction deleted', thought });
     } catch (err) {
       return res.status(500).json(err);
     }

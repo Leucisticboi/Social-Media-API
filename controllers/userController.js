@@ -77,7 +77,7 @@ module.exports = {
 
       await user.save();
 
-      res.status(200).json(user.friends);
+      res.status(200).json(user);
     } catch (err) {
       res.status(500).json(err);
     }
